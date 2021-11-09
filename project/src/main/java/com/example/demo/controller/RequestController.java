@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.exceptions.GlobalExceptions;
 import com.example.demo.interfaces.IRequestService;
 import com.example.demo.model.Request;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import java.util.Map;
 public class RequestController {
     @Autowired
     IRequestService requestService;
+    @Autowired
+    GlobalExceptions globalExceptions;
 
     @GetMapping("/Requests")
     public ResponseEntity<?> getAllRequests(@RequestHeader String organization) {
@@ -31,7 +34,7 @@ public class RequestController {
             return new ResponseEntity<>(mp, HttpStatus.OK);
         }
         else {
-            mp.put("message", "No Requests Available");
+            mp.put("message", globalExceptions.errNoRequestsAvailable);
             return new ResponseEntity<>(mp, HttpStatus.BAD_REQUEST);
         }
         }

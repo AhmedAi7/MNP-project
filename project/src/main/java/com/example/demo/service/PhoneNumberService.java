@@ -1,10 +1,13 @@
 package com.example.demo.service;
 
+import com.example.demo.exceptions.GlobalExceptions;
 import com.example.demo.interfaces.IOperatorService;
 import com.example.demo.interfaces.IPhoneNumberService;
 import com.example.demo.model.PhoneNumber;
 import com.example.demo.repository.PhoneNumberRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +17,8 @@ public class PhoneNumberService implements IPhoneNumberService {
     PhoneNumberRepo phoneNumberRepo;
     @Autowired
     IOperatorService operatorService;
+    @Autowired
+    GlobalExceptions globalExceptions;
 
     //Check if phone number exist in the table (have a previous accepted request)
     public Boolean isExist(String num){
@@ -49,6 +54,14 @@ public class PhoneNumberService implements IPhoneNumberService {
         else {
             PhoneNumber phoneNumber=new PhoneNumber(num,operator); // create new phone number record
             phoneNumberRepo.save(phoneNumber); //insert into ported numbers table
+        }
+    }
+    public void Validate(String number) throws IllegalArgumentException{
+        //get the current operator of the phone number
+        String holder = getOperator(number);
+        //Check if the phone number is wrong (wrong prefix)
+        if (holder==null){
+            throw new IllegalArgumentException (globalExceptions.errWrongPhoneNumber);
         }
     }
 }

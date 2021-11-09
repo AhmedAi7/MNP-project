@@ -59,12 +59,13 @@ public class GlobalExceptionHandler {
         ErrorMessage errorDetails = new ErrorMessage(new Date(),error);
         return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
     }
+
     //Handle IllegalArgumentException
     @ExceptionHandler(value = {IllegalArgumentException.class})
-    public final ResponseEntity<ErrorMessage> handleIllegalArgumentException(MissingServletRequestParameterException ex, WebRequest request) {
+    public final ResponseEntity<ErrorMessage> handleIllegalArgumentException(IllegalArgumentException ex) {
         Map<String, String> error=new HashMap<>();
-        error.put(ex.getMessage(),request.getDescription(false));
+        error.put("Error",ex.getMessage());
         ErrorMessage errorDetails = new ErrorMessage(new Date(),error);
-        return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 }

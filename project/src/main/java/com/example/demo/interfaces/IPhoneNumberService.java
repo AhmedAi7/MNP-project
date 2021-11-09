@@ -9,4 +9,7 @@ public interface IPhoneNumberService {
 
     //Set Operator for phone number
     public void setOperator(String num,String operator);
+
+    //Validate phone number
+    public void Validate(String number);
 }

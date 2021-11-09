@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.exceptions.GlobalExceptions;
 import com.example.demo.interfaces.IPhoneNumberService;
 import com.example.demo.payload.PhoneNumberPayload;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +18,16 @@ public class PhoneNumberController {
 
     @Autowired
     IPhoneNumberService phoneNumberService;
+    @Autowired
+    GlobalExceptions globalExceptions;
     @GetMapping("/PhoneNumberStatus")
     public ResponseEntity<?> getPhoneNumStatus(@RequestBody PhoneNumberPayload phoneNumberPayload) {
         Map<String, String> mp = new HashMap<>();
         String number=phoneNumberPayload.getNumber();
-        //get the current operator of the phone number
         String holder = phoneNumberService.getOperator(number);
-        //Check if the phone number is wrong (wrong prefix)
-        if (holder==null){
-            mp.put("message","Wrong Phone number");
-            return new ResponseEntity<>(mp, HttpStatus.BAD_REQUEST);
-        }
+        //Validate the number
+        phoneNumberService.Validate(number);
+
         //Check if the number has ported before (exists in Phone_Number Table)
         if (phoneNumberService.isExist(number)) {
             //phone number is ported
