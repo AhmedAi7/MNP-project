@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+//Custom Entry point to be used if any exception happened during filtration
+
 @Component
 public class AuthenticationEntryPoint implements org.springframework.security.web.AuthenticationEntryPoint {
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthenticationEntryPoint.class);
+    private static final Logger logger = LoggerFactory.getLogger(AuthenticationEntryPoint.class); // initialize a static logger
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OperatorRepo extends JpaRepository<Operator,String> {
-    Operator getOperatorByPrefix(String prefix);
+    Operator getOperatorByPrefix(String prefix); //get the operator by its prefix
 
 }

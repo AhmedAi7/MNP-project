@@ -3,6 +3,7 @@ package com.example.demo.payload;
 import java.util.Date;
 import java.util.Map;
 
+//Object to be returned for any error
 public class ErrorMessage {
     private Date timestamp;
     private Map<String, String> message;

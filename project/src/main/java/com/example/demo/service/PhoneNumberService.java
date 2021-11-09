@@ -17,13 +17,19 @@ public class PhoneNumberService implements IPhoneNumberService {
 
     //Check if phone number exist in the table (have a previous accepted request)
     public Boolean isExist(String num){
-        return phoneNumberRepo.existsById(num);
+
+        try {
+            return phoneNumberRepo.existsById(num);
+        }
+        catch (Exception e){
+            return false;
+        }
     }
 
     // Get the current operator of the number
     public String getOperator(String num){
         //check if the phone number has switched it's operator before (had a successful operator and saved in phone number table)
-        if (phoneNumberRepo.existsById(num))
+        if (isExist(num))
         {
             return phoneNumberRepo.getById(num).getOperator(); // return the recipient of the last accepted request
         }
@@ -35,7 +41,7 @@ public class PhoneNumberService implements IPhoneNumberService {
     }
     public void setOperator(String num, String operator){
         //Check if phone number is ported before (Exists in phone number table)
-        if (phoneNumberRepo.existsById(num)){
+        if (isExist(num)){
             PhoneNumber phoneNumber=phoneNumberRepo.getById(num);
             phoneNumber.setOperator(operator); // update the current operator
             phoneNumberRepo.save(phoneNumber);

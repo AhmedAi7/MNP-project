@@ -33,6 +33,7 @@ public class GlobalExceptionHandler {
         ErrorMessage errorDetails = new ErrorMessage(new Date(),errors);
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
+    //Handle AccessDeniedException
     @ExceptionHandler(value = {org.springframework.security.access.AccessDeniedException.class})
     public final ResponseEntity<ErrorMessage> handleAccessDeniedException(AccessDeniedException ex, WebRequest request) {
         Map<String, String> error=new HashMap<>();
@@ -41,14 +42,16 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
     }
 
+    //Handle InvalidDataAccessApiUsageException
     @ExceptionHandler(value = {InvalidDataAccessApiUsageException.class})
-    public final ResponseEntity<ErrorMessage> handleAccessDeniedException(InvalidDataAccessApiUsageException ex, WebRequest request) {
+    public final ResponseEntity<ErrorMessage> handleInvalidDataAccessApiUsageException(InvalidDataAccessApiUsageException ex, WebRequest request) {
         Map<String, String> error=new HashMap<>();
         System.out.println("xxx");
         error.put(ex.getMessage(),request.getDescription(false));
         ErrorMessage errorDetails = new ErrorMessage(new Date(),error);
         return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
     }
+    //Handle MissingServletRequestParameterException
     @ExceptionHandler(value = {MissingServletRequestParameterException.class})
     public final ResponseEntity<ErrorMessage> handleMissingServletRequestParameterException(MissingServletRequestParameterException ex, WebRequest request) {
         Map<String, String> error=new HashMap<>();
@@ -56,6 +59,7 @@ public class GlobalExceptionHandler {
         ErrorMessage errorDetails = new ErrorMessage(new Date(),error);
         return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
     }
+    //Handle IllegalArgumentException
     @ExceptionHandler(value = {IllegalArgumentException.class})
     public final ResponseEntity<ErrorMessage> handleIllegalArgumentException(MissingServletRequestParameterException ex, WebRequest request) {
         Map<String, String> error=new HashMap<>();

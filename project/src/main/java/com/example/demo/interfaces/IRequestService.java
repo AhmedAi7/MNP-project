@@ -3,6 +3,8 @@ package com.example.demo.interfaces;
 import com.example.demo.model.Request;
 import com.example.demo.payload.RequestPayload;
 
+import java.util.List;
+
 public interface IRequestService {
 
     public boolean addRequest(String header, RequestPayload requestPayload);
@@ -13,4 +15,5 @@ public interface IRequestService {
     public String getDonor (Long requestID);
     public String getRecipient (Long requestID);
     public String getPhoneNumber(Long requestID);
+    public List<Request> getAllRequests(String operator);
 }

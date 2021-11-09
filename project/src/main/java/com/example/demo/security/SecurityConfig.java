@@ -17,12 +17,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    AuthenticationEntryPoint authenticationEntryPoint;
+    AuthenticationEntryPoint authenticationEntryPoint; //Customized Entry Point
     @Autowired
-    CustomAuthenticationProvider customAuthenticationProvider;
+    CustomAuthenticationProvider customAuthenticationProvider; // Customized Provider
 
     @Bean
-    public CustomAuthenticationFilter authenticationJwtTokenFilter() {
+    public CustomAuthenticationFilter authenticationFilter() {
         return new CustomAuthenticationFilter();
     }
 
@@ -45,6 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest().authenticated();
 
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

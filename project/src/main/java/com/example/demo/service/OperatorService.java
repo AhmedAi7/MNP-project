@@ -11,17 +11,26 @@ public class OperatorService implements IOperatorService {
     @Autowired
     OperatorRepo operatorRepo;
 
-    //if operator exists
+    //if operator exists by its header
     public Boolean isExist (String header){
-        if (header==null)
+        try {
+            return operatorRepo.existsById(header);
+        }
+        catch (Exception e){
             return false;
-        return operatorRepo.existsById(header);
+        }
     }
-    //get operator prefix
+    //get operator prefix by its header
     public String getPrefix(String header){
+        try {
         Operator operator = operatorRepo.getById(header);
         return operator.getPrefix();
+        }
+        catch (Exception e){
+            return null;
+        }
     }
+    //get operator header by its prefix
     public String getHeader(String prefix){
         try {
             Operator operator = operatorRepo.getOperatorByPrefix(prefix);

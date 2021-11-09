@@ -7,6 +7,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Component;
 
+//Customize Authentication Provider
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
@@ -19,7 +20,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     }
 
     private Authentication getValidationToken(String customToken) throws AuthenticationException{
-        // call auth service to check validity of token
+        // Check validity of token
         boolean isValid = true;
         if (isValid)
             return new PreAuthenticatedAuthenticationToken(customToken, "ROLE_ADMIN");

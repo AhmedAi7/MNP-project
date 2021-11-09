@@ -3,6 +3,7 @@ package com.example.demo.payload;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+//Object of Request that has to be sent as request body
 public class RequestPayload {
 // The recipient is the operator that send request "From the organization header";
     @NotBlank(message = "Donor header is mandatory")
