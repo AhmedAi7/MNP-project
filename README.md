@@ -63,7 +63,7 @@ This section list any major frameworks that is used in buliding the project:
 The project contains of main components:
 * Controller
 * Interfaces for Services
-* Service
+* Service (Including BackgroundService which contains background tasks that runs automatically behind the scenes and without user intervention).
 * Repository
 * Payload: Objects of messages that should be sent from or to user and Enum of all request Status to avoid mistyping errors.
 * Secuirty: A middleware component to a the authenticate all requests before access the APIs.
